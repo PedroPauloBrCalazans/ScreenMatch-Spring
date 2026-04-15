@@ -1,5 +1,6 @@
 package br.com.screen.ScreenMatch;
 
+import br.com.screen.ScreenMatch.Service.ConsumoAPI;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,10 @@ public class ScreenMatchApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("Primeiro projeto spring sem web");
+		ConsumoAPI consumoAPI = new ConsumoAPI();
+		var json = consumoAPI.obterDados("https://www.omdbapi.com/?t=gilmore+girls&Season=1&apikey=3e6a71fe");
+		System.out.println(json);
+		json = consumoAPI.obterDados("https://coffee.alexflipnote.dev/random.json");
+		System.out.println(json);
 	}
 }
