@@ -7,8 +7,10 @@ import br.com.screen.ScreenMatch.model.DadosSerie;
 import br.com.screen.ScreenMatch.model.DadosTemporada;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Principal {
 
@@ -44,6 +46,23 @@ public class Principal {
 //            }
 //        }
 
-        temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
+        temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo()))); // somente interação
+
+        List<DadosEpisodio> dadosEpisodioList = temporadas.stream()
+                .flatMap(t -> t.episodios().stream())
+                .collect(Collectors.toList()); // tenho todos os episodios de todas as temporadas.
+
+        System.out.println("\nTop 5 episódios");
+        dadosEpisodioList.stream()
+                .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A")) //tirando todos que for N/A
+                .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed()) //ordem decresente
+                .limit(5)
+                .forEach(System.out::println);
+
+
+
+        //.flatMap = dentro de uma lista vou ter outra lista, e vou puxar todas essas listas juntas..
+        //.toList() vai dar uma lista imutavel
+        //.collect(Collectors.toList()) consigo acresentar coisas novas na lista
     }
 }
