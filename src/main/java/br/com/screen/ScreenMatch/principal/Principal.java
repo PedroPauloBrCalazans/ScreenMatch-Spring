@@ -9,10 +9,7 @@ import br.com.screen.ScreenMatch.model.Episodio;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Principal {
@@ -75,6 +72,19 @@ public class Principal {
 
         episodiosList.forEach(System.out::println);
 
+        System.out.println("\nDigite um trecho do título do episódio");
+        var trechoTitulo = leitura.nextLine();
+        Optional<Episodio> episodioBusca = episodiosList.stream()
+                .filter(t -> t.getTitulo().toUpperCase().contains(trechoTitulo.toUpperCase()))
+                .findFirst(); //pega a 1° referencia encontrada.
+
+        if (episodioBusca.isPresent()) {
+            System.out.println("Episódio encontrado");
+            System.out.println("Temporada: " + episodioBusca.get().getTemporada());
+        } else {
+            System.out.println("Episódio não encontrado!");
+        }
+
         System.out.println("A partir de que ano você deseja ver os episódios? ");
         var ano = leitura.nextInt();
         leitura.nextLine();
@@ -90,11 +100,13 @@ public class Principal {
                                 " Episódio: " + e.getTitulo() +
                                 " Data lançamento: " + e.getDataLancamento().format(formatador)
                 ));
-
-
     }
 }
+
+//filtro para retorna temporada
 
 //.flatMap = dentro de uma lista vou ter outra lista, e vou puxar todas essas listas juntas..
 //.toList() vai dar uma lista imutavel
 //.collect(Collectors.toList()) consigo acresentar coisas novas na lista
+//findFirst() mais precisão na busca, ele tem um retorno
+//optional é um objeto contêiner que pode ou não conter um valor não nulo, caso na busca não encontrar nada, a gente teria uma referencia nula e pra não ter uma referencia nula usa o optinal.
