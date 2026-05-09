@@ -85,25 +85,33 @@ public class Principal {
             System.out.println("Episódio não encontrado!");
         }
 
-        System.out.println("A partir de que ano você deseja ver os episódios? ");
-        var ano = leitura.nextInt();
-        leitura.nextLine();
+//        System.out.println("A partir de que ano você deseja ver os episódios? ");
+//        var ano = leitura.nextInt();
+//        leitura.nextLine();
+//
+//        LocalDate dataBusca = LocalDate.of(ano, 1, 1);
+//
+//        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//
+//        episodiosList.stream()
+//                .filter(e -> e.getDataLancamento() != null && e.getDataLancamento().isAfter(dataBusca))
+//                .forEach(e -> System.out.println(
+//                        "Temporada: " + e.getTemporada() +
+//                                " Episódio: " + e.getTitulo() +
+//                                " Data lançamento: " + e.getDataLancamento().format(formatador)
+//                ));
 
-        LocalDate dataBusca = LocalDate.of(ano, 1, 1);
+        Map<Integer, Double> avaliacoesPorTemporada = episodiosList.stream()
+                .filter(e -> e.getAvaliacao() > 0.0)
+                .collect(Collectors.groupingBy(Episodio::getTemporada,
+                        Collectors.averagingDouble(Episodio::getAvaliacao)));
 
-        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        episodiosList.stream()
-                .filter(e -> e.getDataLancamento() != null && e.getDataLancamento().isAfter(dataBusca))
-                .forEach(e -> System.out.println(
-                        "Temporada: " + e.getTemporada() +
-                                " Episódio: " + e.getTitulo() +
-                                " Data lançamento: " + e.getDataLancamento().format(formatador)
-                ));
+        System.out.println(avaliacoesPorTemporada);
     }
 }
 
 //filtro para retorna temporada
+//avaliações por temporadas
 
 //.flatMap = dentro de uma lista vou ter outra lista, e vou puxar todas essas listas juntas..
 //.toList() vai dar uma lista imutavel
