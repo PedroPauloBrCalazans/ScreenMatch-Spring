@@ -107,6 +107,16 @@ public class Principal {
                         Collectors.averagingDouble(Episodio::getAvaliacao)));
 
         System.out.println(avaliacoesPorTemporada);
+
+        DoubleSummaryStatistics est = episodiosList.stream().
+                filter(e -> e.getAvaliacao() > 0.0)
+                .collect(Collectors.summarizingDouble(Episodio::getAvaliacao));
+
+        System.out.println("\nEstatísticas");
+        System.out.println("Média: " + est.getAverage());
+        System.out.println("Melhor episódio: " + est.getMax());
+        System.out.println("Pior episódio: " + est.getMin());
+        System.out.println("Total de episódios avaliados: " + est.getCount());
     }
 }
 
@@ -118,3 +128,4 @@ public class Principal {
 //.collect(Collectors.toList()) consigo acresentar coisas novas na lista
 //findFirst() mais precisão na busca, ele tem um retorno
 //optional é um objeto contêiner que pode ou não conter um valor não nulo, caso na busca não encontrar nada, a gente teria uma referencia nula e pra não ter uma referencia nula usa o optinal.
+//DoubleSummaryStatistics = resultado de stream nessa classe para medias, somas etc..
