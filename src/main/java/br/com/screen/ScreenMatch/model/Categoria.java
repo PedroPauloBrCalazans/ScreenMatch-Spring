@@ -22,3 +22,5 @@ public enum Categoria {
         throw new IllegalArgumentException("Nenhuma categoria encontrada para a string fornecida: ");
     } //se o texto que está vindo e igual a categoria do omdb, atribui a nossa categoria
 }
+
+//O enum tem um construtor que permite atribuir um valor a este atributo.
