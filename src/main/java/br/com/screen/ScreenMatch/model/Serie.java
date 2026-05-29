@@ -17,6 +17,74 @@ public class Serie {
 
     private String sinopse;
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public Integer getTotalTemp() {
+        return totalTemp;
+    }
+
+    public void setTotalTemp(Integer totalTemp) {
+        this.totalTemp = totalTemp;
+    }
+
+    public Double getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(Double avaliacao) {
+        this.avaliacao = avaliacao;
+    }
+
+    public Categoria getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Categoria genero) {
+        this.genero = genero;
+    }
+
+    public String getAtores() {
+        return atores;
+    }
+
+    public void setAtores(String atores) {
+        this.atores = atores;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public String getSinopse() {
+        return sinopse;
+    }
+
+    public void setSinopse(String sinopse) {
+        this.sinopse = sinopse;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "genero=" + genero +
+                ", titulo='" + titulo + '\'' +
+                ", totalTemp=" + totalTemp +
+                ", avaliacao=" + avaliacao +
+                ", atores='" + atores + '\'' +
+                ", poster='" + poster + '\'' +
+                ", sinopse='" + sinopse + '\'';
+    }
+
     public Serie(DadosSerie dadosSerie) {
         this.titulo = dadosSerie.titulo();
         this.totalTemp = dadosSerie.totalTemp();
