@@ -1,16 +1,26 @@
 package br.com.screen.ScreenMatch.model;
 
 import br.com.screen.ScreenMatch.Service.ConsultaChatGPT;
+import jakarta.persistence.*;
 
 import java.util.OptionalDouble;
 
+@Entity
+@Table(name = "series")
 public class Serie {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
     private String titulo;
 
     private Integer totalTemp;
 
     private Double avaliacao;
 
+    @Enumerated(EnumType.STRING)
     private Categoria genero;
 
     private String atores;
@@ -18,6 +28,14 @@ public class Serie {
     private String poster;
 
     private String sinopse;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitulo() {
         return titulo;
@@ -85,6 +103,10 @@ public class Serie {
                 ", atores='" + atores + '\'' +
                 ", poster='" + poster + '\'' +
                 ", sinopse='" + sinopse + '\'';
+    }
+
+    protected Serie() {
+        //O Hibernate/JPA precisa de um construtor sem argumentos para criar objetos da entidade quando lê dados do banco.
     }
 
     public Serie(DadosSerie dadosSerie) {
