@@ -1,12 +1,10 @@
 package br.com.screen.ScreenMatch.model;
 
-import br.com.screen.ScreenMatch.Service.ConsultaChatGPT;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalDouble;
 
 @Entity
 @Table(name = "series")
@@ -133,6 +131,6 @@ public class Serie {
         this.genero = Categoria.fromString(dadosSerie.genero().split(",")[0].trim());
         this.atores = dadosSerie.atores();
         this.poster = dadosSerie.poster();
-        this.sinopse = ConsultaChatGPT.obterTraducao(dadosSerie.sinopse()).trim();
+        this.sinopse = dadosSerie.sinopse();
     }
 }
