@@ -3,6 +3,9 @@ package br.com.screen.ScreenMatch.model;
 import br.com.screen.ScreenMatch.Service.ConsultaChatGPT;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.OptionalDouble;
 
 @Entity
@@ -28,6 +31,17 @@ public class Serie {
     private String poster;
 
     private String sinopse;
+
+    @Transient
+    private List<Episodio> episodios = new ArrayList<>();
+
+//    public List<Episodio> getEpisodios() {
+//        return episodios;
+//    }
+//
+//    public void setEpisodios(List<Episodio> episodios) {
+//        this.episodios = episodios;
+//    }
 
     public Long getId() {
         return id;
@@ -112,7 +126,10 @@ public class Serie {
     public Serie(DadosSerie dadosSerie) {
         this.titulo = dadosSerie.titulo();
         this.totalTemp = dadosSerie.totalTemp();
-        this.avaliacao = OptionalDouble.of(Double.valueOf(dadosSerie.avaliacao())).orElse(0);
+        this.avaliacao = Optional.ofNullable(dadosSerie.avaliacao())
+                .filter(a -> !a.equals("N/A"))
+                .map(Double::valueOf)
+                .orElse(0.0);
         this.genero = Categoria.fromString(dadosSerie.genero().split(",")[0].trim());
         this.atores = dadosSerie.atores();
         this.poster = dadosSerie.poster();

@@ -5,6 +5,8 @@ import br.com.screen.ScreenMatch.Service.ConverteDados;
 import br.com.screen.ScreenMatch.model.DadosSerie;
 import br.com.screen.ScreenMatch.model.DadosTemporada;
 import br.com.screen.ScreenMatch.model.Serie;
+import br.com.screen.ScreenMatch.repository.SerieRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,6 +21,12 @@ public class Principal {
     private final String API_KEY = "&apikey=3e6a71fe";
 
     private List<DadosSerie> dadosSeries = new ArrayList<>();
+
+    private SerieRepository serieRepository;
+
+    public Principal(SerieRepository serieRepository) {
+        this.serieRepository = serieRepository;
+    }
 
     public void exibeMenu() {
         var opcao = -1;
@@ -57,7 +65,9 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        dadosSeries.add(dados);
+        Serie serie = new Serie(dados);
+        //dadosSeries.add(dados);
+        serieRepository.save(serie);
         System.out.println(dados);
     }
 
