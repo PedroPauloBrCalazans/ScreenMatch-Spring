@@ -33,13 +33,13 @@ public class Serie {
     @OneToMany(mappedBy = "serie")
     private List<Episodio> episodios = new ArrayList<>();
 
-//    public List<Episodio> getEpisodios() {
-//        return episodios;
-//    }
-//
-//    public void setEpisodios(List<Episodio> episodios) {
-//        this.episodios = episodios;
-//    }
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        this.episodios = episodios;
+    }
 
     public Long getId() {
         return id;
