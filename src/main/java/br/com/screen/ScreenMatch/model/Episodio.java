@@ -44,9 +44,7 @@ public class Episodio {
         }
     }
 
-    public Episodio() {
-
-    }
+    public Episodio() {}
 
     public Integer getTemporada() {
         return temporada;
