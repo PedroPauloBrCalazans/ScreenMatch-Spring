@@ -27,8 +27,13 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 
     @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE e.titulo ILIKE %:trechoEpisodio%")
     List<Episodio> episodiosPorTrecho(String trechoEpisodio);
+
+    @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s = :serie ORDER BY e.avaliacao DESC LIMIT 5")
+    List<Episodio> topEpisodiosPorSerie(Serie serie);
+
+    @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s = :serie AND YEAR(e.dataLancamento) >= :anoLancamento")
+    List<Episodio> episodiosPorSerieEAno(Serie serie, int anoLancamento);
 }
 
 //No 1° parametro da JpaRepository passar a entidade que estou manipulando, 2° o ID
-
 //Ilike = registros que contem alguma coisa, mesma coisa de chamar o ignoreCase
