@@ -1,7 +1,8 @@
 package br.com.screen.ScreenMatch.controller;
 
+import br.com.screen.ScreenMatch.Service.SerieService;
 import br.com.screen.ScreenMatch.dto.SerieDTO;
-import br.com.screen.ScreenMatch.repository.SerieRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,14 +13,10 @@ import java.util.List;
 public class SerieController {
 
     @Autowired
-    private SerieRepository repository;
+    private SerieService serieService;
 
     @GetMapping("/series")
     public List<SerieDTO> obterSeries() {
-        return repository.findAll()
-                .stream()
-                .map(s -> new SerieDTO(s.getId(), s.getTitulo(),
-                        s.getTotalTemp(), s.getAvaliacao(), s.getGenero(),
-                        s.getAtores(), s.getPoster(), s.getSinopse())).toList();
+        return serieService.obterTodasSeries();
     }
 }
