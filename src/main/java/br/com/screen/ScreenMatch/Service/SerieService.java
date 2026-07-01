@@ -1,6 +1,7 @@
 package br.com.screen.ScreenMatch.Service;
 
 import br.com.screen.ScreenMatch.dto.SerieDTO;
+import br.com.screen.ScreenMatch.model.Serie;
 import br.com.screen.ScreenMatch.repository.SerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,18 @@ public class SerieService {
     private SerieRepository repository;
 
     public List<SerieDTO> obterTodasSeries() {
-        return repository.findAll()
-                .stream()
+        return converteDados(repository.findAll());
+    }
+
+    public List<SerieDTO> obterTop5Series() {
+        return converteDados(repository.findTop5ByOrderByAvaliacaoDesc());
+
+    }
+
+    private List<SerieDTO> converteDados(List<Serie> series) {
+        return series.stream()
                 .map(s -> new SerieDTO(s.getId(), s.getTitulo(),
                         s.getTotalTemp(), s.getAvaliacao(), s.getGenero(),
                         s.getAtores(), s.getPoster(), s.getSinopse())).toList();
     }
-
 }
