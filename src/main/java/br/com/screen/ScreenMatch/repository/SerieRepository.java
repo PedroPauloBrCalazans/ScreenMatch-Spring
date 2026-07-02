@@ -33,7 +33,10 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 
     @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s = :serie AND YEAR(e.dataLancamento) >= :anoLancamento")
     List<Episodio> episodiosPorSerieEAno(Serie serie, int anoLancamento);
+
+    List<Serie> findTop5ByOrderByEpisodiosDataLancamentoDesc();
 }
 
 //No 1° parametro da JpaRepository passar a entidade que estou manipulando, 2° o ID
 //Ilike = registros que contem alguma coisa, mesma coisa de chamar o ignoreCase
+//derivedQuery

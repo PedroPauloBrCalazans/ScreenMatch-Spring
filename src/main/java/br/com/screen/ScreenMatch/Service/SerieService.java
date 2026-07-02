@@ -23,6 +23,10 @@ public class SerieService {
 
     }
 
+    public List<SerieDTO> obterLancamentos() {
+        return converteDados(repository.findTop5ByOrderByEpisodiosDataLancamentoDesc());
+    }
+
     private List<SerieDTO> converteDados(List<Serie> series) {
         return series.stream()
                 .map(s -> new SerieDTO(s.getId(), s.getTitulo(),
