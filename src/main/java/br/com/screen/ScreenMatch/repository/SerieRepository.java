@@ -39,4 +39,5 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 
 //No 1° parametro da JpaRepository passar a entidade que estou manipulando, 2° o ID
 //Ilike = registros que contem alguma coisa, mesma coisa de chamar o ignoreCase
-//derivedQuery
+//derived querie
+//JPQL
