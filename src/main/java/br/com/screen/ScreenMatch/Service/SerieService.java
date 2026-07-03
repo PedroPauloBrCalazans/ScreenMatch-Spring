@@ -1,5 +1,6 @@
 package br.com.screen.ScreenMatch.Service;
 
+import br.com.screen.ScreenMatch.dto.EpisodioDTO;
 import br.com.screen.ScreenMatch.dto.SerieDTO;
 import br.com.screen.ScreenMatch.model.Serie;
 import br.com.screen.ScreenMatch.repository.SerieRepository;
@@ -43,6 +44,18 @@ public class SerieService {
            return new SerieDTO(s.getId(), s.getTitulo(),
                    s.getTotalTemp(), s.getAvaliacao(), s.getGenero(),
                    s.getAtores(), s.getPoster(), s.getSinopse());
+        }
+        return null;
+    }
+
+    public List<EpisodioDTO> obterTodasTemporadas(Long id) {
+        Optional<Serie> serie = repository.findById(id);
+
+        if (serie.isPresent()) {
+            Serie s = serie.get();
+            return s.getEpisodios().stream()
+                    .map(e -> new EpisodioDTO(e.getTemporada(), e.getTitulo(), e.getNumeroEpisodio()))
+                    .toList();  //mapeando todos os episodios da serie para episodioDTO
         }
         return null;
     }
