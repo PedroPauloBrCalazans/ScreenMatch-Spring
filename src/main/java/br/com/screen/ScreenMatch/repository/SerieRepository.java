@@ -41,6 +41,9 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 //            "GROUP BY s " +
 //            "ORDER BY MAX(e.dataLancamento) DESC LIMIT 5")
 //    List<Serie> encontrarEpisodiosMaisRecentes(); UTILIZANDO JPQL DO MESMO MÉTODO findTop5ByOrderByEpisodiosDataLancamentoDesc
+
+    @Query("SELECT e FROM Serie s join s.episodios e WHERE s.id = :id and e.temporada = :numero")
+    List<Episodio> obterEpisodioPorTemporada(Long id, Long numero);
 }
 
 //No 1° parametro da JpaRepository passar a entidade que estou manipulando, 2° o ID
